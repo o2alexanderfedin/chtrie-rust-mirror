@@ -1,6 +1,13 @@
 use super::*;
 use crate::chtrie_h::{Chtrie, ChtrieEdge};
 
+pub const SZ_MAX: u64 = -1i32 as u64 as u64;
+
+#[inline]
+extern "C" fn min(x: i32, y: u64) -> u64 {
+    return if (x as u64) < y { x as u64 } else { y };
+}
+
 /// Allocate a trie with at most `n` nodes, and the alphabet size `m`.
 ///
 ///If `n` or `m` is less than 1, they will be regulated to 1.
@@ -53,7 +60,7 @@ pub(crate) extern "C" fn chtrie_alloc(mut n: u64, mut m: u64) -> *mut Chtrie {
                     __state = 6;
                 }
                 8 => {
-                    if n > 2147483647 as u64 || m > 2147483647 as u64 {
+                    if n > i32::MAX as u64 || m > i32::MAX as u64 {
                         __state = 11;
                     } else {
                         __state = 10;
@@ -64,12 +71,7 @@ pub(crate) extern "C" fn chtrie_alloc(mut n: u64, mut m: u64) -> *mut Chtrie {
                     __state = 8;
                 }
                 10 => {
-                    if if (2147483647 as u64) < -1i32 as u64 {
-                        2147483647 as u64
-                    } else {
-                        -1i32 as u64
-                    }
-                    .wrapping_sub(n.wrapping_sub(1 as u64))
+                    if min(2147483647, SZ_MAX).wrapping_sub(n.wrapping_sub(1 as u64))
                         < n.wrapping_sub(1 as u64) / 3 as u64
                     {
                         __state = 14;
