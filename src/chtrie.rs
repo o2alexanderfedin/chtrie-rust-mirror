@@ -71,7 +71,7 @@ pub(crate) extern "C" fn chtrie_alloc(mut n: u64, mut m: u64) -> *mut Chtrie {
                     __state = 8;
                 }
                 10 => {
-                    if min(2147483647, SZ_MAX).wrapping_sub(n.wrapping_sub(1 as u64))
+                    if min(i32::MAX, SZ_MAX).wrapping_sub(n.wrapping_sub(1 as u64))
                         < n.wrapping_sub(1 as u64) / 3 as u64
                     {
                         __state = 14;
