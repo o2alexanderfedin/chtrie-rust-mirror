@@ -338,12 +338,7 @@ pub(crate) extern "C" fn chtrie_free(tr: *mut Chtrie) -> () {
                 }
                 break '__c4;
             }
-            {
-                let __p = &mut i;
-                let __t = *__p;
-                *__p += 1;
-                __t
-            };
+            i += 1;
         }
     }
     unsafe { free(unsafe { (*tr).etab } as *mut ()) };

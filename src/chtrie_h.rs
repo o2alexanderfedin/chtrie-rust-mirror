@@ -1,7 +1,7 @@
 use super::*;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub(crate) struct ChtrieEdge {
     pub(crate) next: *mut ChtrieEdge,
     pub(crate) from: i32,
@@ -10,7 +10,7 @@ pub(crate) struct ChtrieEdge {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub(crate) struct Chtrie {
     pub(crate) etab: *mut *mut ChtrieEdge,
     pub(crate) idxpool: *mut i32,
